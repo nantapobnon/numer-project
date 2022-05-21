@@ -2,6 +2,8 @@ import logo from './logo.svg'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import { Nav,Navbar,NavDropdown } from 'react-bootstrap'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,6 +24,12 @@ import Cholesky from './linear-equation/cholesky';
 import Jacobi from './linear-equation/jacobi';
 import NewtonDivide from './interpolation/newton-divide';
 import Lagrange from './interpolation/lagrange';
+import Spline from './interpolation/spline';
+import Forwardh from './differentiation/forward'
+import Backwardh from './differentiation/backward'
+import Centralh from './differentiation/central'
+import Simpson from './integration/simpson';
+import Trapzoidal from './integration/trapzoidal';
 
 function App() {
   return (
@@ -62,7 +70,20 @@ function App() {
             <NavDropdown title="Interpolation">
               <NavDropdown.Item as={Link} to={"/newtonDivide"}>Newton's Divide Differences</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/lagrange"}>Lagrange Interpolation</NavDropdown.Item>
-              <NavDropdown.Item href='Linear Algebraic Equation/Conjugate Gradient Method'>Spline Interpolation</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/spline"}>Spline Interpolation</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            <NavDropdown title="Integration">
+              <NavDropdown.Item as={Link} to={"/trapzoidal"}>Composite Trapzoidal</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/simpson"}>Composite Simpson</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            <NavDropdown title="Differentiation">
+              <NavDropdown.Item as={Link} to={"/forward"}>forward divide difference</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/backward"}>backward divide difference</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/central"}>central divide difference</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar>
@@ -111,6 +132,24 @@ function App() {
           </Routes>
           <Routes>
             <Route path='/lagrange' element={<Lagrange/>} />
+          </Routes>
+          <Routes>
+            <Route path='/spline' element={<Spline/>} />
+          </Routes>
+          <Routes>
+            <Route path='/forward' element={<Forwardh/>} />
+          </Routes>
+          <Routes>
+            <Route path='/backward' element={<Backwardh/>} />
+          </Routes>
+          <Routes>
+            <Route path='/central' element={<Centralh/>} />
+          </Routes>
+          <Routes>
+            <Route path='/simpson' element={<Simpson/>} />
+          </Routes>
+          <Routes>
+            <Route path='/trapzoidal' element={<Trapzoidal/>} />
           </Routes>
         </div>
       </Router>

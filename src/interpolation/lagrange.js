@@ -1,222 +1,288 @@
-import React, { Component } from 'react'
-import { Card, Input, Button, Table } from 'antd';
-import 'antd/dist/antd.css';
+import React, { useState, useEffect, Component, Fragment } from "react";
+import { Card, Input, Button, Table } from "antd";
+import "antd/dist/antd.css";
 const InputStyle = {
-    background: "#1890ff",
-    color: "white",
-    fontWeight: "bold",
-    fontSize: "24px"
-
+  width: "100px",
+  background: "white",
+  color: "black",
+  fontWeight: "bold",
+  fontSize: "24px",
 };
-var columns = [
+
+function Lagrange() {
+  const [matrixSize, setMatrixSize] = useState({
+    rows: 2,
+    columns: 2,
+  });
+  const [matrixXY, setMatrixXY] = useState(null);
+  const [matrixPoint, setMatrixPoint] = useState(null);
+  const [pointNum, setPointNum] = useState(2);
+  const [target, setTarget] = useState(null);
+  const [output, setOutput] = useState(null);
+  var matrix = [];
+  var matrixP = [];
+  var x = [];
+  var y = [];
+  var fx;
+  var point = [];
+  var columns = [
     {
-        title: "No.",
-        dataIndex: "no",
-        key: "no"
+      title: "No.",
+      dataIndex: "no",
+      key: "no",
     },
     {
-        title: "X",
-        dataIndex: "x",
-        key: "x"
+      title: "X",
+      dataIndex: "x",
+      key: "x",
     },
     {
-        title: "Y",
-        dataIndex: "y",
-        key: "y"
+      title: "Y",
+      dataIndex: "y",
+      key: "y",
+    },
+  ];
+
+  function L(X, index, n) {
+    var numerate = 1 /*ตัวเศษ*/,
+      denominate = 1; /*ตัวส่วน*/
+    for (var i = 1; i <= n; i++) {
+      if (i !== index) {
+        numerate *= x[i] - X;
+        denominate *= x[i] - x[index];
+      }
     }
-];
-var x, y, tableTag, interpolatePoint, tempTag, fx
+    console.log(numerate / denominate);
+    return parseFloat(numerate / denominate);
+  }
 
-class Lagrange extends Component {
-
-    constructor() {
-        super();
-        x = []
-        y = []
-        interpolatePoint = []
-        tempTag = []
-        tableTag = []
-        this.state = {
-            nPoints: 0,
-            X: 0,
-            interpolatePoint: 0,
-            showInputForm: true,
-            showTableInput: false,
-            showOutputCard: false
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.newton_difference = this.newton_difference.bind(this);
-
+  function calc() {
+    x = [];
+    y = [];
+    for (var i = 1; i <= matrixSize["rows"]; i++) {
+      x[i] = parseFloat(document.getElementById("x" + i).value);
+      y[i] = parseFloat(document.getElementById("y" + i).value);
     }
-    createTableInput(n) {
-        for (var i = 1; i <= n; i++) {
-            x.push(<Input style={{
-                width: "100%",
-                height: "50%",
-                backgroundColor: "black",
-                marginInlineEnd: "5%",
-                marginBlockEnd: "5%",
-                color: "white",
-                fontSize: "18px",
-                fontWeight: "bold"
+    for (i = 1; i <= pointNum; i++) {
+      point[i] = parseInt(document.getElementById("p" + i).value);
+    }
+
+    fx = 0;
+    for (var i = 1; i <= pointNum; i++) {
+      fx += L(target, i, pointNum) * y[i];
+    }
+    setOutput(fx);
+  }
+
+  function createMatrix() {
+    for (var i = 1; i <= matrixSize["rows"]; i++) {
+      x.push(
+        <Input
+          style={{
+            width: "100%",
+            height: "50%",
+            backgroundColor: "white",
+            marginInlineEnd: "5%",
+            marginBlockEnd: "5%",
+            color: "black",
+            fontSize: "18px",
+            fontWeight: "bold",
+          }}
+          id={"x" + i}
+          key={"x" + i}
+          placeholder={"x" + i}
+        />
+      );
+      y.push(
+        <Input
+          style={{
+            width: "100%",
+            height: "50%",
+            backgroundColor: "white",
+            marginInlineEnd: "5%",
+            marginBlockEnd: "5%",
+            color: "black",
+            fontSize: "18px",
+            fontWeight: "bold",
+          }}
+          id={"y" + i}
+          key={"y" + i}
+          placeholder={"y" + i}
+        />
+      );
+      matrix.push({
+        no: i,
+        x: x[i - 1],
+        y: y[i - 1],
+      });
+    }
+
+    for (var i = 1; i <= pointNum; i++) {
+      matrixP.push(
+        <Input
+          style={{
+            width: "14%",
+            height: "50%",
+            backgroundColor: "white",
+            marginInlineEnd: "5%",
+            marginBlockEnd: "5%",
+            color: "black",
+            fontSize: "18px",
+            fontWeight: "bold",
+          }}
+          id={"p" + i}
+          key={"p" + i}
+          placeholder={"p" + i}
+        />
+      );
+    }
+
+    setMatrixXY(matrix);
+    setMatrixPoint(matrixP);
+  }
+
+  return (
+    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
+      <h2 style={{ color: "black", fontWeight: "bold" }}>
+        Lagrange Interpolation
+      </h2>
+      <div className="row">
+        <div
+          className="col"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",textAlign: "center",
+          }}
+        >
+          <Card
+            style={{
+              background: "rgb(75, 75, 168)",
+              width: "70%",
+              color: "#FFFFFFFF",
+              borderRadius: "10px",
+              padding: "16px",
             }}
-                id={"x" + i} key={"x" + i} placeholder={"x" + i} />);
-            y.push(<Input style={{
-                width: "100%",
-                height: "50%",
-                backgroundColor: "black",
-                marginInlineEnd: "5%",
-                marginBlockEnd: "5%",
-                color: "white",
-                fontSize: "18px",
-                fontWeight: "bold"
-            }}
-                id={"y" + i} key={"y" + i} placeholder={"y" + i} />);
-            tableTag.push({
-                no: i,
-                x: x[i - 1],
-                y: y[i - 1]
-            });
-        }
-
-
-        this.setState({
-            showInputForm: false,
-            showTableInput: true,
-        })
-    }
-    createInterpolatePointInput() {
-        for (var i = 1; i <= this.state.interpolatePoint; i++) {
-            tempTag.push(<Input style={{
-                width: "14%",
-                height: "50%",
-                backgroundColor: "black",
-                marginInlineEnd: "5%",
-                marginBlockEnd: "5%",
-                color: "white",
-                fontSize: "18px",
-                fontWeight: "bold"
-            }}
-                id={"p" + i} key={"p" + i} placeholder={"p" + i} />)
-        }
-    }
-    initialValue() {
-        x = []
-        y = []
-        for (var i = 1; i <= this.state.nPoints; i++) {
-            x[i] = parseFloat(document.getElementById("x" + i).value);
-            y[i] = parseFloat(document.getElementById("y" + i).value);
-        }
-        for (i = 1; i <= this.state.interpolatePoint; i++) {
-            interpolatePoint[i] = parseInt(document.getElementById("p" + i).value);
-        }
-    }
-    C(n) {
-        if (n === 1) {
-            return 0
-        }
-        else {
-            return ((y[interpolatePoint[n]] - y[interpolatePoint[n - 1]]) / (x[interpolatePoint[n]] - x[interpolatePoint[n - 1]])) - this.C(n - 1)
-        }
-
-    }
-    findX(n, X) {
-        if (n < 1) {
-            return 1
-        }
-        else {
-            console.log(X + " - " + x[interpolatePoint[n]])
-            return (X - x[interpolatePoint[n]]) * this.findX(n - 1, X)
-        }
-    }
-    newton_difference(n, X) {
-        this.initialValue()
-        fx = y[1]
-        if (n === 2) { //if linear interpolate
-            fx += ((y[interpolatePoint[2]] - y[interpolatePoint[1]]) / (x[interpolatePoint[2]] - x[interpolatePoint[1]])) * (X - x[interpolatePoint[1]])
-        }
-        else {
-            for (var i = 2; i <= n; i++) {
-                fx += (this.C(i) / (x[interpolatePoint[i]] - x[interpolatePoint[1]])) * this.findX(i - 1, X)
-            }
-        }
-
-        this.setState({
-            showOutputCard: true
-        })
-
-    }
-
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-    render() {
-        return (
-            <div style={{ padding: "30px" }}>
-                <h2 style={{ color: "black", fontWeight: "bold" }}>Newton's Divided Differences Interpolation</h2>
-                <div className="row">
-                    <div className="col">
-                        <Card
-                            bordered={true}
-                            style={{ background: "gray", borderRadius:"15px", color: "#FFFFFFFF" }}
-                            onChange={this.handleChange}
-                        >
-                            {this.state.showTableInput &&
-                                <div>
-                                    <Table columns={columns} dataSource={tableTag} pagination={false} bordered={true} bodyStyle={{ fontWeight: "bold", fontSize: "18px", color: "white", overflowY: "scroll", minWidth: 120, maxHeight: 300 }}></Table>
-                                    <br /><h2>interpolatePoint {parseInt(this.state.interpolatePoint) === 2 ? "(Linear)" :
-                                        parseInt(this.state.interpolatePoint) === 3 ? "(Quadratic)" :
-                                            "(Polynomial)"}</h2>{tempTag}
-                                    <Button
-                                        id="matrix_button"
-                                        style={{ background: "blue", color: "white" }}
-                                        onClick={() => this.newton_difference(parseInt(this.state.interpolatePoint), parseFloat(this.state.X))}>
-                                        Submit
-                                </Button>
-                                </div>}
-
-                            {this.state.showInputForm &&
-                                <div>
-                                    <h2>Number of points(n)</h2><Input size="large" name="nPoints" style={InputStyle}></Input>
-                                    <h2>X</h2><Input size="large" name="X" style={InputStyle}></Input>
-                                    <h2>interpolatePoint</h2><Input size="large" name="interpolatePoint" style={InputStyle}></Input>
-                                    <Button id="dimention_button" onClick={
-                                        () => {
-                                            this.createTableInput(parseInt(this.state.nPoints));
-                                            this.createInterpolatePointInput()
-                                        }
-                                    }
-                                        style={{ background: "#4caf50", color: "white" }}>
-                                        Submit<br></br>
-                                    </Button>
-                                </div>
-                            }
-
-                        </Card>
-                    </div>
-                    <div className="col">
-                        {this.state.showOutputCard &&
-                            <Card
-                                title={"Output"}
-                                bordered={true}
-                                style={{ border: "2px solid black", background: "rgb(61, 104, 61) none repeat scroll 0% 0%", color: "white" }}
-                            >
-                                <p style={{ fontSize: "24px", fontWeight: "bold" }}>{fx}</p>
-
-                            </Card>
-                        }
-                    </div>
-
-                </div>
-
-
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <h3>Matrix size</h3>
+                <Input
+                  size="large"
+                  type="number"
+                  name="XR"
+                  style={InputStyle}
+                  value={matrixSize["rows"]}
+                  defaultValue={matrixSize["rows"]}
+                  onChange={(e) => {
+                    const rows = parseInt(e.target.value);
+                    // if we only want matrix of size between 2 and 8
+                    if (2 <= rows && rows <= 10) {
+                      setMatrixSize((prevSize) => ({
+                        ...prevSize,
+                        rows: rows,
+                        columns: rows,
+                      }));
+                    }
+                  }}
+                ></Input>
+              </div>
+              <div style={{ width: "80px" }}></div>
+              <div>
+                <h3>Points(n)</h3>
+                <Input
+                  size="large"
+                  name="points"
+                  type="number"
+                  value={pointNum}
+                  defaultValue={pointNum}
+                  style={InputStyle}
+                  onChange={(e) => {
+                    if (2 <= e.target.value && e.target.value <= 10) {
+                      setPointNum(e.target.value);
+                    }
+                    //setPointNum(e.target.value);
+                  }}
+                ></Input>
+              </div>
+              <div style={{ width: "80px" }}></div>
+              <div>
+                <h3>X</h3>
+                <Input
+                  size="large"
+                  name="X"
+                  value={target}
+                  style={{
+                    width: "200px",
+                    background: "white",
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "24px",
+                  }}
+                  onChange={(e) => {
+                    setTarget(e.target.value);
+                  }}
+                ></Input>
+              </div>
             </div>
-        );
-    }
+
+            <br />
+            <br />
+            <Button onClick={createMatrix}>Set Matrix</Button>
+            {matrixXY && (
+              <div style={{}}>
+                <br />
+                <br />
+                <div
+                  style={{
+                    width: "50%",
+                    margin: "0 auto",
+                  }}
+                >
+                  <h2>Input MatrixXY</h2>
+                  {/* <br /> */}
+                  <Table
+                    columns={columns}
+                    dataSource={matrixXY}
+                    pagination={false}
+                    bordered={true}
+                    bodyStyle={{
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                      color: "white",
+                      overflowY: "scroll",
+                      minWidth: 120,
+                      maxHeight: 300,
+                    }}
+                  ></Table>
+                </div>
+                <br />
+                <h2>Input Point</h2>
+                <br />
+                {matrixPoint}
+                <br />
+                <Button onClick={calc}>Enter</Button>
+              </div>
+            )}
+            {output && (
+              <div>
+                <br />
+                <br />
+                <h2>Result</h2>
+                <br />
+                <h2 style={{ color: "white", fontWeight: "bold" }}>{"X("+target+") = "+output}</h2>
+              </div>
+            )}
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default Lagrange;
-
-
-

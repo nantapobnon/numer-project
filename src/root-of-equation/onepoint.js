@@ -38,7 +38,7 @@ function OnePoint(){
             temp=x0;
             x0 = x1 ;
             dataTable.push({
-                X: x1.toFixed(8),
+                X: func(fx,x1).toFixed(8),
                 Err: (Math.abs((x1-temp)/x1)).toFixed(8),
             })
             X.push(x1.toFixed(8));
@@ -102,10 +102,10 @@ function OnePoint(){
 
 
     return(
-        <div style={{ background: "#FFFF", padding: "30px" }}>
+        <div style={{ background: "#FFFF", padding: "30px",textAlign: "center", }}>
             <h2 style={{ color: "black", fontWeight: "bold" }}>One-Point Iteration Method</h2>
             <div className="row">
-                <div className="col" style={{display: "flex", justifyContent: "center",alignItems: "center"}}>
+                <div className="col" style={{display: "flex",textAlign: "center", justifyContent: "center",alignItems: "center"}}>
                     <Card
                         style={{ background: "rgb(75, 75, 168)",width: "70%", color: "#FFFFFFFF", borderRadius:"10px" ,padding: "16px"}}
                     >

@@ -141,7 +141,7 @@ function Cholesky() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF", padding: "30px",textAlign: "center", }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         Cholesky Decomposition Method
       </h2>
@@ -151,7 +151,7 @@ function Cholesky() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center",textAlign: "center",
           }}
         >
           <Card

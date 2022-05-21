@@ -1,9 +1,6 @@
 import React, { useState,useEffect,Component } from "react";
 import { Card, Input, Button, Table } from 'antd';
 import { compile, derivative } from 'mathjs';
-// import 'antd/dist/antd.css';
-import './graphical-method.css';
-import 'antd/dist/antd.css';
 
 const func = (fx, X) => {
     var expr = compile(fx); 

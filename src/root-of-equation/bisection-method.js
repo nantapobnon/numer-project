@@ -54,7 +54,7 @@ function Bisection() {
           M: xm.toFixed(8),
           Err: sum.toFixed(8),
         });
-        X.push(xm.toFixed(8));
+        X.push(func(fx, xm).toFixed(8));
         Y.push(sum.toFixed(8));
       }
       creatTable();
@@ -178,12 +178,13 @@ function Bisection() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF", padding: "30px" ,textAlign: "center",}}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>Bisection Method</h2>
       <div className="row">
         <div
           className="col"
           style={{
+            textAlign: "center",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

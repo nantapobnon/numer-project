@@ -136,7 +136,7 @@ function GaussJordan() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         Gauss-Jordan Method
       </h2>
@@ -145,7 +145,7 @@ function GaussJordan() {
           className="col"
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "center",textAlign: "center",
             alignItems: "center",
           }}
         >

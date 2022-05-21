@@ -47,14 +47,14 @@ function Falseposition() {
         Fl = func(fx, l);
         Fr = func(fx, r);
         x1 = (l * Fr - r * Fl) / (Fr - Fl);
-        func(x1) * Fr < 0 ? (l = x1) : (r = x1);
+        func(fx,x1) * Fr < 0 ? (l = x1) : (r = x1);
         dataTable.push({
           L: l.toFixed(8),
           R: r.toFixed(8),
           X: x1.toFixed(8),
           Err: Math.abs((x1 - x_old) / x1).toFixed(8),
         });
-        X.push(x1.toFixed(8));
+        X.push(func(fx,x1).toFixed(8));
         Y.push(Math.abs((x1 - x_old) / x1).toFixed(8));
       } while (Math.abs((x1 - x_old) / x1) > err);
       creatTable();
@@ -122,7 +122,7 @@ function Falseposition() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF", padding: "30px",textAlign: "center", }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         False Position Method
       </h2>
@@ -130,6 +130,7 @@ function Falseposition() {
         <div
           className="col"
           style={{
+            textAlign: "center",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

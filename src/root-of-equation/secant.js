@@ -2,7 +2,7 @@ import React, { useState,useEffect,Component,Fragment } from "react";
 import { Card, Input, Button} from 'antd';
 import { compile } from 'mathjs';
 import Table from 'react-bootstrap/Table'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import Plotly from 'plotly.js-dist'
 
 const func = (fx, X) => {
@@ -108,10 +108,10 @@ function Secant(){
 
 
     return(
-        <div style={{ background: "#FFFF", padding: "30px" }}>
+        <div style={{ background: "#FFFF", padding: "30px",textAlign: "center", }}>
             <h2 style={{ color: "black", fontWeight: "bold" }}>Secant Method</h2>
             <div className="row">
-                <div className="col" style={{display: "flex", justifyContent: "center",alignItems: "center"}}>
+                <div className="col" style={{display: "flex",textAlign: "center", justifyContent: "center",alignItems: "center"}}>
                     <Card
                         style={{ background: "rgb(75, 75, 168)",width: "70%", color: "#FFFFFFFF", borderRadius:"10px" ,padding: "16px"}}
                     >

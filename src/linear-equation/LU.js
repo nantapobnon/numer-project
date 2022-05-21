@@ -94,7 +94,7 @@ function LU() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         LU Decomposition Method
       </h2>
@@ -104,7 +104,7 @@ function LU() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center",textAlign: "center",
           }}
         >
           <Card

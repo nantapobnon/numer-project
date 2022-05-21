@@ -111,7 +111,7 @@ function Cramer() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>Cramer's rule</h2>
       <div className="row">
         <div
@@ -119,7 +119,7 @@ function Cramer() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center",textAlign: "center",
           }}
         >
           <Card

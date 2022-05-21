@@ -1,7 +1,5 @@
 import React, { useState, useEffect, Component, Fragment } from "react";
 import { Card, Input, Button, Table } from "antd";
-import { compile } from "mathjs";
-import { det } from "mathjs";
 import "antd/dist/antd.css";
 
 const InputStyle = {
@@ -160,7 +158,7 @@ function NewtonDivide() {
   }
 
   return (
-    <div style={{ background: "#FFFF", padding: "30px" }}>
+    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         Newton's Divided Differences
       </h2>
@@ -170,7 +168,7 @@ function NewtonDivide() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center",textAlign: "center",
           }}
         >
           <Card
@@ -221,7 +219,7 @@ function NewtonDivide() {
                   defaultValue={pointNum}
                   style={InputStyle}
                   onChange={(e) => {
-                    if (2 <= e.target.value && e.target.value <= 10) {
+                    if (2 <= e.target.value && e.target.value <= 5) {
                       setPointNum(e.target.value);
                     }
                     //setPointNum(e.target.value);
