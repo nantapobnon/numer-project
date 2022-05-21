@@ -41,7 +41,7 @@ function OnePoint(){
                 X: func(fx,x1).toFixed(8),
                 Err: (Math.abs((x1-temp)/x1)).toFixed(8),
             })
-            X.push(x1.toFixed(8));
+            X.push(func(fx,x1).toFixed(8));
             Y.push((Math.abs((x1-temp)/x1)).toFixed(8));
         }while(Math.abs((x1-temp)/x1)>err)
         creatTable()

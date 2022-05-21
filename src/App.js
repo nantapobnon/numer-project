@@ -30,6 +30,11 @@ import Backwardh from './differentiation/backward'
 import Centralh from './differentiation/central'
 import Simpson from './integration/simpson';
 import Trapzoidal from './integration/trapzoidal';
+import Seidal from './linear-equation/seidal';
+import Conjugate from './linear-equation/conjugate';
+import Linear from './regression/linear';
+import Polynomial from './regression/polynomial';
+import MultipleLinear from './regression/multiple';
 
 function App() {
   return (
@@ -46,7 +51,7 @@ function App() {
           </Navbar.Brand>
           <Nav>
             <NavDropdown title="Root of Equation">
-              {/* <NavDropdown.Item as={Link} to={"/graphical"}>Graphical Method</NavDropdown.Item> */}
+              <NavDropdown.Item as={Link} to={"/graphical"}>Graphical Method</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/bisection"}>Bisection Method</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/falseposition"}>False Position Method</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/onepoint"}>One-Point Iteration Method</NavDropdown.Item>
@@ -62,8 +67,15 @@ function App() {
               <NavDropdown.Item as={Link} to={"/LU"}>LU Decomposition Method</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/cholesky"}>Cholesky Decomposition Method</NavDropdown.Item>
               <NavDropdown.Item as={Link} to={"/jacobi"}>Jacobi Iteration Method</NavDropdown.Item>
-              <NavDropdown.Item href='Linear Algebraic Equation/Gauss-Seidel Iteration Method'>Gauss-Seidel Iteration Method</NavDropdown.Item>
-              <NavDropdown.Item href='Linear Algebraic Equation/Conjugate Gradient Method'>Conjugate Gradient Method</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/seidal"}>Gauss-Seidel Iteration Method</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/conjugate"}>Conjugate Gradient Method</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            <NavDropdown title="Least Squares Regression">
+              <NavDropdown.Item as={Link} to={"/linear"}>Linear Regression</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/polynomial"}>Polynomial Regression</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/multiple"}>Multiple Linear Regression</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
@@ -92,6 +104,15 @@ function App() {
             <Route path='/' exact element={<Bisection/>} />
           </Routes>
           <Routes>
+            <Route path='linear' exact element={<Linear/>} />
+          </Routes>
+          <Routes>
+            <Route path='multiple' exact element={<MultipleLinear/>} />
+          </Routes>
+          <Routes>
+            <Route path='polynomial' exact element={<Polynomial/>} />
+          </Routes>
+          <Routes>
             <Route path='/graphical' element={<Graphical/>} />
           </Routes>
           <Routes>
@@ -99,6 +120,9 @@ function App() {
           </Routes>
           <Routes>
             <Route path='/falseposition' element={<FalsePosition/>} />
+          </Routes>
+          <Routes>
+            <Route path='/conjugate' element={<Conjugate/>} />
           </Routes>
           <Routes>
             <Route path='/onepoint' element={<OnePoint/>} />
@@ -120,6 +144,9 @@ function App() {
           </Routes>
           <Routes>
             <Route path='/LU' element={<LU/>} />
+          </Routes>
+          <Routes>
+            <Route path='/seidal' element={<Seidal/>} />
           </Routes>
           <Routes>
             <Route path='/cholesky' element={<Cholesky/>} />

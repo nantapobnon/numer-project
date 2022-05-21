@@ -43,7 +43,7 @@ function Secant(){
                 xnew: x3.toFixed(8),
                 Err: (Math.abs((x3-x2)/x3)).toFixed(8)
             })
-            X.push(x3.toFixed(8));
+            X.push(func(fx,x3).toFixed(8));
             Y.push((Math.abs((x3-x2)/x3)).toFixed(8));
         }
         creatTable()
