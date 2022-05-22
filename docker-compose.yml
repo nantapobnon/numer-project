@@ -1,0 +1,19 @@
+version: '3'
+services:
+  frontend:
+    image: frontend
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    networks:
+      - react-app
+  backend:
+    image: backend
+    ports:
+      - "4000:4000"
+    networks:
+      - react-app
+networks:
+  react-app:
+    driver: bridge 
+

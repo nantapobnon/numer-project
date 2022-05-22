@@ -32,8 +32,6 @@ const differentiationRouter = require("./routes/differentiation");
 const integrationRouter = require("./routes/integration");
 const linearRouter = require("./routes/linear");
 const interpolationRouter = require("./routes/interpolation");
-const { applyDependencies } = require("mathjs");
-const { request } = require("express");
 
 // Setup all the routes
 app.use("/api/auth", authRouter);

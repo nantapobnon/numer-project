@@ -1,7 +1,7 @@
 // Import dependencies
 const jwt = require("jsonwebtoken");
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 // Setup the express server router
 const router = express.Router();
