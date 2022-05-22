@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 // Setup the express server
 const app = express();
@@ -6,14 +7,18 @@ const port = 4000;
 
 // Import middlewares into express
 app.use(express.json({ limit: "100mb" }));
+app.use(cors());
 
 // Import routes
 const authRouter = require("./routes/auth");
 const messagesRouter = require("./routes/messages");
+const rootOfEquationRouter = require("./routes/rootOfEquation");
+const { applyDependencies } = require("mathjs");
 
 // Setup all the routes
 app.use("/api/messages", messagesRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/rootofequation", rootOfEquationRouter);
 
 // Start the server
 app.listen(port, () => {
