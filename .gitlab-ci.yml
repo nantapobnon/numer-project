@@ -1,5 +1,18 @@
-build project:
+stages: 
+  - test
+  - build 
+
+test project:
+  stage: test
   image: node:14
   script:
-    - npm install
+    - yarn install
+    - yarn test
+
+build project:
+  stage: build
+  image: node:14
+  script:
+    - yarn install
+    - yarn build
     
