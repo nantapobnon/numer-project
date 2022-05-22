@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import { compile } from "mathjs";
+import axios from "axios";
 var Algebrite = require("algebrite");
 
 const InputStyle = {
@@ -29,9 +30,9 @@ function Trapzoidal() {
   const [output, setOutput] = useState(null);
   const [exact, setExact] = useState(null);
   const [err, setErr] = useState(null);
-  const [upper, setUpper] = useState(null);
-  const [lower, setLower] = useState(null);
-  const [n, setN] = useState(null);
+  const [upper, setUpper] = useState("");
+  const [lower, setLower] = useState("");
+  const [n, setN] = useState("");
 
   function cal() {
     var h = (upper - lower) / n;
@@ -56,8 +57,30 @@ function Trapzoidal() {
     return sum;
   }
 
+  function callAPI() {
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+
+    axios
+      .get("http://localhost:4000/api/integration", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          if (response.data.result[i].id === "compTrapzoidal") {
+            setFx(response.data.result[i].fx);
+            setUpper(parseFloat(response.data.result[i].upper));
+            setLower(parseFloat(response.data.result[i].lower));
+            setN(parseFloat(response.data.result[i].n));
+          }
+        }
+        
+      });
+      console.log(upper)
+  }
+
   return (
-    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
+    <div style={{ background: "#FFFF", textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         Composite Trapzoidal Rule
       </h2>
@@ -67,7 +90,8 @@ function Trapzoidal() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",textAlign: "center",
+            alignItems: "center",
+            textAlign: "center",
           }}
         >
           <Card
@@ -84,6 +108,7 @@ function Trapzoidal() {
               <Input
                 size="large"
                 style={InputStyle}
+                value={fx}
                 onChange={(e) => {
                   setFx(e.target.value);
                 }}
@@ -93,6 +118,7 @@ function Trapzoidal() {
             <div>
               <h3>Upper Bound</h3>
               <Input
+                value={upper}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -104,6 +130,7 @@ function Trapzoidal() {
             <div>
               <h3>Lower Bound</h3>
               <Input
+                value={lower}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -115,6 +142,7 @@ function Trapzoidal() {
             <div>
               <h3>N</h3>
               <Input
+                value={n}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -122,7 +150,10 @@ function Trapzoidal() {
                 }}
               ></Input>
             </div>
-
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
+            <br />
             <br />
             <Button onClick={cal}>Enter</Button>
             {output && (

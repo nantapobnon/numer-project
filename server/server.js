@@ -13,12 +13,16 @@ app.use(cors());
 const authRouter = require("./routes/auth");
 const messagesRouter = require("./routes/messages");
 const rootOfEquationRouter = require("./routes/rootOfEquation");
+const differentiationRouter = require("./routes/differentiation");
+const integrationRouter = require("./routes/integration");
 const { applyDependencies } = require("mathjs");
 
 // Setup all the routes
 app.use("/api/messages", messagesRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/rootofequation", rootOfEquationRouter);
+app.use("/api/differentiation", differentiationRouter);
+app.use("/api/integration", integrationRouter);
 
 // Start the server
 app.listen(port, () => {

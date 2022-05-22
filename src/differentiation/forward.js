@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import { compile, derivative } from "mathjs";
+import axios from "axios";
 
 const InputStyle = {
   width: "300px",
@@ -78,6 +79,27 @@ function Forwardh() {
     setOutput(y.toFixed(6));
   }
 
+  function callAPI() {
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+    
+    axios
+      .get("http://localhost:4000/api/differentiation", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          console.log(response.data.result[i].id)
+          if (response.data.result[i].id === "forward") {
+            setFx(response.data.result[i].fx);
+            setX(parseFloat(response.data.result[i].x));
+            setH(parseFloat(response.data.result[i].h));
+            setDegree(parseFloat(response.data.result[i].degree));
+          }
+        }
+      });
+  }
+
   return (
     <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
@@ -106,6 +128,7 @@ function Forwardh() {
               <Input
                 size="large"
                 style={InputStyle}
+                value={fx}
                 onChange={(e) => {
                   setFx(e.target.value);
                 }}
@@ -128,11 +151,13 @@ function Forwardh() {
                 }}
               ></Input>
             </div>
+
             <br />
             <div>
               <h3>X</h3>
               <Input
                 size="large"
+                value={x}
                 style={InputStyle}
                 onChange={(e) => {
                   setX(parseFloat(e.target.value));
@@ -145,12 +170,16 @@ function Forwardh() {
               <Input
                 size="large"
                 style={InputStyle}
+                value={h}
                 onChange={(e) => {
                   setH(parseFloat(e.target.value));
                 }}
               ></Input>
             </div>
-
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
+            <br />
             <br />
             <Button onClick={cal}>Enter</Button>
             {output && (
@@ -160,6 +189,7 @@ function Forwardh() {
                 <h2 style={{ color: "white", fontWeight: "bold" }}>
                   {"Result = " + output}
                 </h2>
+                <br />
                 <br />
                 <h2 style={{ color: "white", fontWeight: "bold" }}>
                   {"Exact = " + exact}

@@ -4,6 +4,7 @@ import { compile } from "mathjs";
 import Table from "react-bootstrap/Table";
 import "antd/dist/antd.min.css";
 import Plotly from "plotly.js-dist";
+import axios from "axios";
 
 const func = (fx, X) => {
   var expr = compile(fx);
@@ -107,6 +108,25 @@ function Secant() {
     );
   }
 
+  function callAPI() {
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+    
+    axios
+      .get("http://localhost:4000/api/rootofequation", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          if (response.data.result[i].id == "secant") {
+            setFx(response.data.result[i].fx);
+            setX1(response.data.result[i].x0);
+            setX2(response.data.result[i].x1);
+          }
+        }
+      });
+  }
+
   return (
     <div style={{ background: "#FFFF", padding: "30px", textAlign: "center" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>Secant Method</h2>
@@ -153,6 +173,9 @@ function Secant() {
               style={InputStyle}
               onChange={(event) => setX2(event.target.value)}
             ></Input>
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
             <br />
             <br />
             <Button onClick={cal}>Enter</Button>
