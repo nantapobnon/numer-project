@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component, Fragment } from "react";
 import { Card, Input, Button, Table } from "antd";
 import "antd/dist/antd.css";
+import axios from "axios";
 
 const InputStyle = {
   width: "100px",
@@ -157,6 +158,111 @@ function NewtonDivide() {
     setMatrixPoint(matrixP);
   }
 
+  function callAPI() {
+    var row;
+    var nP;
+    var point;
+    var matX;
+    var matY;
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+    axios
+      .get("http://localhost:4000/api/interpolation", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          if (response.data.result[i].id === "newtondivide") {
+            //var
+            row = parseFloat(response.data.result[i].row);
+            setMatrixSize((prevSize) => ({
+              ...prevSize,
+              rows: row,
+              columns: row,
+            }));
+
+            setTarget(response.data.result[i].target);
+
+            matX = response.data.result[i].x.split(",");
+            matY = response.data.result[i].y.split(",");
+            for (var j = 1; j <= row; j++) {
+              x.push(
+                <Input
+                  style={{
+                    width: "100%",
+                    height: "50%",
+                    backgroundColor: "white",
+                    marginInlineEnd: "5%",
+                    marginBlockEnd: "5%",
+                    color: "black",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                  }}
+                  value={matX[j - 1]}
+                  id={"x" + j}
+                  key={"x" + j}
+                  placeholder={"x" + j}
+                />
+              );
+              y.push(
+                <Input
+                  style={{
+                    width: "100%",
+                    height: "50%",
+                    backgroundColor: "white",
+                    marginInlineEnd: "5%",
+                    marginBlockEnd: "5%",
+                    color: "black",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                  }}
+                  value={matY[j - 1]}
+                  id={"y" + j}
+                  key={"y" + j}
+                  placeholder={"y" + j}
+                />
+              );
+              matrix.push({
+                no: j,
+                x: x[j - 1],
+                y: y[j - 1],
+              });
+            }
+
+            nP = parseFloat(response.data.result[i].nPoint);
+            point = response.data.result[i].point.split(",");
+
+            for (var j = 1; j <= nP; j++) {
+              matrixP.push(
+                <Input
+                  style={{
+                    width: "14%",
+                    height: "50%",
+                    backgroundColor: "white",
+                    marginInlineEnd: "5%",
+                    marginBlockEnd: "5%",
+                    color: "black",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                  }}
+                  value={point[j - 1]}
+                  id={"p" + j}
+                  key={"p" + j}
+                  placeholder={"p" + j}
+                />
+              );
+            }
+
+            setMatrixXY(matrix);
+            setMatrixPoint(matrixP);
+            // .map((doc) => {
+            //   return parseFloat(doc);
+            // });
+          }
+        }
+      });
+  }
+
   return (
     <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
@@ -246,7 +352,9 @@ function NewtonDivide() {
                 ></Input>
               </div>
             </div>
-
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
             <br />
             <br />
             <Button onClick={createMatrix}>Set Matrix</Button>
@@ -281,6 +389,7 @@ function NewtonDivide() {
                 <h2>Input Point</h2>
                 <br />
                 {matrixPoint}
+
                 <br />
                 <Button onClick={calc}>Enter</Button>
               </div>
@@ -291,7 +400,7 @@ function NewtonDivide() {
                 <br />
                 <h2>Result</h2>
                 <br />
-                <h2 style={{ color: "white", fontWeight: "bold" }}>{output}</h2>
+                <h2 style={{ color: "white", fontWeight: "bold" }}>{"X("+target+") = "+output}</h2>
               </div>
             )}
           </Card>

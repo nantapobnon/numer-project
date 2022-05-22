@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import { compile, derivative } from "mathjs";
+import axios from "axios";
 
 const InputStyle = {
   width: "300px",
@@ -73,8 +74,28 @@ function Backwardh() {
     setOutput(y.toFixed(6));
   }
 
+  function callAPI() {
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+    axios
+      .get("http://localhost:4000/api/differentiation", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          console.log(response.data.result[i].id);
+          if (response.data.result[i].id === "forward") {
+            setFx(response.data.result[i].fx);
+            setX(parseFloat(response.data.result[i].x));
+            setH(parseFloat(response.data.result[i].h));
+            setDegree(parseFloat(response.data.result[i].degree));
+          }
+        }
+      });
+  }
+
   return (
-    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
+    <div style={{ background: "#FFFF", textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         backward divided-difference O(h)
       </h2>
@@ -84,7 +105,8 @@ function Backwardh() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",textAlign: "center",
+            alignItems: "center",
+            textAlign: "center",
           }}
         >
           <Card
@@ -100,6 +122,7 @@ function Backwardh() {
               <h3>f(x)</h3>
               <Input
                 size="large"
+                value={fx}
                 style={InputStyle}
                 onChange={(e) => {
                   setFx(e.target.value);
@@ -110,10 +133,10 @@ function Backwardh() {
             <div>
               <h3>Degree</h3>
               <Input
+                value={degree}
                 size="large"
                 type="number"
                 style={InputStyle}
-                value={degree}
                 defaultValue={degree}
                 onChange={(e) => {
                   const d = parseInt(e.target.value);
@@ -127,6 +150,7 @@ function Backwardh() {
             <div>
               <h3>X</h3>
               <Input
+                value={x}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -138,6 +162,7 @@ function Backwardh() {
             <div>
               <h3>H</h3>
               <Input
+                value={h}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -145,7 +170,10 @@ function Backwardh() {
                 }}
               ></Input>
             </div>
-
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
+            <br />
             <br />
             <Button onClick={cal}>Enter</Button>
             {output && (

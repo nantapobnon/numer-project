@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import { compile } from "mathjs";
+import axios from "axios";
 var Algebrite = require("algebrite");
 
 const InputStyle = {
@@ -64,6 +65,28 @@ function Simpson() {
     return sum;
   }
 
+  function callAPI() {
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+    
+    axios
+      .get("http://localhost:4000/api/integration", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          if (response.data.result[i].id === "compSimpson") {
+            setFx(response.data.result[i].fx);
+            setUpper(parseFloat(response.data.result[i].upper));
+            setLower(parseFloat(response.data.result[i].lower));
+            setN(parseFloat(response.data.result[i].n));
+          }
+        }
+        
+      });
+      console.log(upper)
+  }
+
   return (
     <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
@@ -91,6 +114,7 @@ function Simpson() {
               <h3>f(x)</h3>
               <Input
                 size="large"
+                value={fx}
                 style={InputStyle}
                 onChange={(e) => {
                   setFx(e.target.value);
@@ -102,6 +126,7 @@ function Simpson() {
               <h3>Upper Bound</h3>
               <Input
                 size="large"
+                value={upper}
                 style={InputStyle}
                 onChange={(e) => {
                   setUpper(parseFloat(e.target.value));
@@ -112,6 +137,7 @@ function Simpson() {
             <div>
               <h3>Lower Bound</h3>
               <Input
+              value={lower}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -123,6 +149,7 @@ function Simpson() {
             <div>
               <h3>N</h3>
               <Input
+              value={n}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -130,7 +157,10 @@ function Simpson() {
                 }}
               ></Input>
             </div>
-
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
+            <br />
             <br />
             <Button onClick={cal}>Enter</Button>
             {output && (

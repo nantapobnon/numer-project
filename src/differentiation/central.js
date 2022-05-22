@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
 import "antd/dist/antd.css";
 import { compile, derivative } from "mathjs";
+import axios from "axios";
 
 const InputStyle = {
   width: "300px",
@@ -41,17 +42,30 @@ function Centralh() {
 
   function cal() {
     switch (degree) {
-        case 1:
-            y = (func(fx, x+(1*h)) - func(fx, x-(1*h))) / (2*h)
-            break;
-        case 2:
-            y = (func(fx, x+(1*h)) - 2*func(fx, x) + func(fx, x-(1*h))) / Math.pow(h, 2)
-            break;
-        case 3:
-            y = (func(fx, x+(2*h)) - 2*func(fx, x+(1*h)) + 2*func(fx, x-(1*h)) - func(fx, x-(2*h))) / (2*Math.pow(h, 3))
-            break;
-        default:
-            y = (func(fx, x+(2*h)) - 4*func(fx, x+(1*h)) + 6*func(fx, x) - 4*func(fx, x-(1*h)) + func(fx, x-(2*h))) / Math.pow(h, 4) 
+      case 1:
+        y = (func(fx, x + 1 * h) - func(fx, x - 1 * h)) / (2 * h);
+        break;
+      case 2:
+        y =
+          (func(fx, x + 1 * h) - 2 * func(fx, x) + func(fx, x - 1 * h)) /
+          Math.pow(h, 2);
+        break;
+      case 3:
+        y =
+          (func(fx, x + 2 * h) -
+            2 * func(fx, x + 1 * h) +
+            2 * func(fx, x - 1 * h) -
+            func(fx, x - 2 * h)) /
+          (2 * Math.pow(h, 3));
+        break;
+      default:
+        y =
+          (func(fx, x + 2 * h) -
+            4 * func(fx, x + 1 * h) +
+            6 * func(fx, x) -
+            4 * func(fx, x - 1 * h) +
+            func(fx, x - 2 * h)) /
+          Math.pow(h, 4);
     }
     setExact(funcDiffDegreeN(fx, x, degree).toFixed(6));
     setErr(
@@ -60,8 +74,28 @@ function Centralh() {
     setOutput(y.toFixed(6));
   }
 
+  function callAPI() {
+    const headers = {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc",
+    };
+    axios
+      .get("http://localhost:4000/api/differentiation", { headers })
+      .then((response) => {
+        for (var i = 0; i < response.data.result.length; i++) {
+          console.log(response.data.result[i].id);
+          if (response.data.result[i].id === "forward") {
+            setFx(response.data.result[i].fx);
+            setX(parseFloat(response.data.result[i].x));
+            setH(parseFloat(response.data.result[i].h));
+            setDegree(parseFloat(response.data.result[i].degree));
+          }
+        }
+      });
+  }
+
   return (
-    <div style={{ background: "#FFFF",textAlign: "center", padding: "30px" }}>
+    <div style={{ background: "#FFFF", textAlign: "center", padding: "30px" }}>
       <h2 style={{ color: "black", fontWeight: "bold" }}>
         central divided-difference O(h)
       </h2>
@@ -71,7 +105,8 @@ function Centralh() {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",textAlign: "center",
+            alignItems: "center",
+            textAlign: "center",
           }}
         >
           <Card
@@ -87,6 +122,7 @@ function Centralh() {
               <h3>f(x)</h3>
               <Input
                 size="large"
+                value={fx}
                 style={InputStyle}
                 onChange={(e) => {
                   setFx(e.target.value);
@@ -114,6 +150,7 @@ function Centralh() {
             <div>
               <h3>X</h3>
               <Input
+                value={x}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -125,6 +162,7 @@ function Centralh() {
             <div>
               <h3>H</h3>
               <Input
+                value={h}
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -132,6 +170,10 @@ function Centralh() {
                 }}
               ></Input>
             </div>
+            <br />
+            <br />
+            <Button onClick={callAPI}>API</Button>
+            <br />
 
             <br />
             <Button onClick={cal}>Enter</Button>
