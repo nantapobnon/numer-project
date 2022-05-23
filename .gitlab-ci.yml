@@ -4,6 +4,7 @@ stages:
   - test
   - testFront
   - testBack
+  - testCal
   # - deploy
 
 # test project:
@@ -40,6 +41,12 @@ test back:
   stage: testBack
   script:
     - test server/server.js
+
+test cal:
+  image: alpine
+  stage: testCal
+  script:
+    - test src/root-of-equation/bisection-method.js
 
 
 
