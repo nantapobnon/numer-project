@@ -33,6 +33,9 @@ function Cholesky() {
       B.push(parseFloat(document.getElementById("b" + (i + 1)).value));
     }
 
+    console.log(A)
+    console.log(B)
+
     var x = new Array(matrixSize["rows"]);
     var y = new Array(matrixSize["rows"]);
 
@@ -219,3 +222,8 @@ function Cholesky() {
 }
 
 export default Cholesky;
+
+
+
+
+
