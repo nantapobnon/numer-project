@@ -33,7 +33,31 @@ const integrationRouter = require("./routes/integration");
 const linearRouter = require("./routes/linear");
 const interpolationRouter = require("./routes/interpolation");
 
-// Setup all the routes
+// Setup all the routes\
+
+
+
+/**
+ * @swagger 
+ * /api/auth:
+ *   post:
+ *     description: Get api token
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *     - in: body
+ *       name: user
+ *       schema: 
+ *         type: object
+ *         propeties: 
+ *           email:
+ *             type: string
+ *           password:
+ *             type: string
+ *     responses: 
+ *       200: 
+ *            description: get Example Success!
+ */
 app.use("/api/auth", authRouter);
 
 /**
