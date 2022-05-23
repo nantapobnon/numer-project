@@ -2,6 +2,8 @@ stages:
   #- test
   - build 
   - test
+  - testFront
+  - testBack
   # - deploy
 
 # test project:
@@ -24,10 +26,21 @@ build project:
 test website:
   image: alpine
   stage: test
-  # script:
-  #   - test -f build/index.html
   script:
     - test build/index.html
+
+test front:
+  image: alpine
+  stage: testFront
+  script:
+    - test src/app.js
+
+test back:
+  image: alpine
+  stage: testBack
+  script:
+    - test server/server.js
+
 
 
 # netlify:
