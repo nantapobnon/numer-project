@@ -23,7 +23,7 @@ build project:
 
 test website:
   image: alpine
-  stage test
+  stage: test
   script:
     - test -f build/index.html
 
