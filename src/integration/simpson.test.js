@@ -27,6 +27,5 @@ test("test backward result",()=> {
 
     const result = screen.getByText(/Result/i);
     expect(result).toBeInTheDocument;
-    console.log(result)
     expect(result).toHaveTextContent("Result = 38.442139");
 });

@@ -27,6 +27,5 @@ test("test backward result",()=> {
 
     const result = screen.getByText(/Exact/i);
     expect(result).toBeInTheDocument;
-    console.log(result)
     expect(result).toHaveTextContent("Exact = 7.389056");
 });
