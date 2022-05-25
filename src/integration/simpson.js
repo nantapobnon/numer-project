@@ -114,6 +114,7 @@ function Simpson() {
               <h3>f(x)</h3>
               <Input
                 size="large"
+                data-testid="fx"
                 value={fx}
                 style={InputStyle}
                 onChange={(e) => {
@@ -125,6 +126,7 @@ function Simpson() {
             <div>
               <h3>Upper Bound</h3>
               <Input
+              data-testid="upper"
                 size="large"
                 value={upper}
                 style={InputStyle}
@@ -138,6 +140,7 @@ function Simpson() {
               <h3>Lower Bound</h3>
               <Input
               value={lower}
+              data-testid="lower"
                 size="large"
                 style={InputStyle}
                 onChange={(e) => {
@@ -151,6 +154,7 @@ function Simpson() {
               <Input
               value={n}
                 size="large"
+                data-testid="n"
                 style={InputStyle}
                 onChange={(e) => {
                   setN(parseFloat(e.target.value));
