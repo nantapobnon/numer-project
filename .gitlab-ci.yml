@@ -29,6 +29,7 @@ test website:
   stage: test
   script:
     - test build/index.html
+    - npm run test
 
 test front:
   image: alpine
