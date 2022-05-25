@@ -19,6 +19,7 @@ build project:
   image: node:16-alpine
   script:
     - npm install
+    - npm run test
   #   - npm run bui
   # artifacts:
   #   paths:
@@ -29,7 +30,6 @@ test website:
   stage: test
   script:
     - test build/index.html
-    - npm run test
 
 test front:
   image: alpine
