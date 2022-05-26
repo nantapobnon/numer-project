@@ -1,7 +1,5 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
-import { compile } from "mathjs";
-import { det } from "mathjs";
 import "antd/dist/antd.css";
 import axios from "axios";
 
@@ -19,10 +17,8 @@ function Gauss_eliminate() {
     columns: 2,
   });
   const [matrixA, setMatrixA] = useState(null);
-  const [matrixB, setMatrixB] = useState(null);
   const [matrixRes, setMatrixRes] = useState(null);
   var matrix = [];
-  var matrixAns = [];
   var A = [];
   var B = [];
   var result = [];
@@ -50,9 +46,9 @@ function Gauss_eliminate() {
     }
     //Forward eliminated
     for (var k = 0; k < matrixSize["rows"]; k++) {
-      for (var i = k + 1; i < matrixSize["rows"]; i++) {
+      for (i = k + 1; i < matrixSize["rows"]; i++) {
         var factor = A[i][k] / A[k][k];
-        for (var j = k; j < matrixSize["rows"]; j++) {
+        for (j = k; j < matrixSize["rows"]; j++) {
           A[i][j] = A[i][j] - factor * A[k][j];
         }
         B[i] = B[i] - factor * B[k];
@@ -125,7 +121,6 @@ function Gauss_eliminate() {
     console.log(matrix);
     console.log(matrixSize["rows"]);
     setMatrixA(matrix);
-    setMatrixB(matrixAns);
   }
 
   function callAPI() {
@@ -160,7 +155,7 @@ function Gauss_eliminate() {
             // });
 
 
-            for (var i = 1; i <= row; i++) {
+            for (i = 1; i <= row; i++) {
               for (var j = 1; j <= row; j++) {
                 matrix.push(
                   <Input
@@ -203,7 +198,6 @@ function Gauss_eliminate() {
               //matrixAns.push(<br />);
             }
             setMatrixA(matrix);
-            setMatrixB(matrixAns);
           }
         }
       });

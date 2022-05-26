@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button, Table } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
@@ -84,7 +84,7 @@ function NewtonDivide() {
         ((y[point[2]] - y[point[1]]) / (x[point[2]] - x[point[1]])) *
         (target - x[point[1]]);
     } else {
-      for (var i = 2; i <= pointNum; i++) {
+      for (i = 2; i <= pointNum; i++) {
         result += (C(i) / (x[point[i]] - x[point[1]])) * findX(i - 1, target);
       }
     }
@@ -134,7 +134,7 @@ function NewtonDivide() {
       });
     }
 
-    for (var i = 1; i <= pointNum; i++) {
+    for (i = 1; i <= pointNum; i++) {
       matrixP.push(
         <Input
           style={{
@@ -232,7 +232,7 @@ function NewtonDivide() {
             nP = parseFloat(response.data.result[i].nPoint);
             point = response.data.result[i].point.split(",");
 
-            for (var j = 1; j <= nP; j++) {
+            for (j = 1; j <= nP; j++) {
               matrixP.push(
                 <Input
                   style={{

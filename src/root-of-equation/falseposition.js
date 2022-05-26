@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Card, Input, Button } from "antd";
 import { compile } from "mathjs";
 import Table from "react-bootstrap/Table";
@@ -132,7 +132,7 @@ function Falseposition() {
       .get("http://localhost:4000/api/rootofequation", { headers })
       .then((response) => {
         for (var i = 0; i < response.data.result.length; i++) {
-          if (response.data.result[i].id == "falseposition") {
+          if (response.data.result[i].id === "falseposition") {
             setFx(response.data.result[i].fx);
             setXl(response.data.result[i].xl);
             setXr(response.data.result[i].xr);

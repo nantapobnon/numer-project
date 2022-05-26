@@ -1,6 +1,5 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
-import { compile } from "mathjs";
 import { det } from "mathjs";
 import "antd/dist/antd.css";
 import axios from "axios";
@@ -19,10 +18,8 @@ function Cramer() {
     columns: 2,
   });
   const [matrixA, setMatrixA] = useState(null);
-  const [matrixB, setMatrixB] = useState(null);
   const [matrixRes, setMatrixRes] = useState(null);
   var matrix = [];
-  var matrixAns = [];
   var A = [];
   var B = [];
   var result = [];
@@ -109,7 +106,6 @@ function Cramer() {
     console.log(matrix);
     console.log(matrixSize["rows"]);
     setMatrixA(matrix);
-    setMatrixB(matrixAns);
   }
 
   function callAPI() {
@@ -144,7 +140,7 @@ function Cramer() {
             // });
 
 
-            for (var i = 1; i <= row; i++) {
+            for (i = 1; i <= row; i++) {
               for (var j = 1; j <= row; j++) {
                 matrix.push(
                   <Input
@@ -187,7 +183,6 @@ function Cramer() {
               //matrixAns.push(<br />);
             }
             setMatrixA(matrix);
-            setMatrixB(matrixAns);
           }
         }
       });

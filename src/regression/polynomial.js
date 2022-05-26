@@ -153,7 +153,7 @@ class Polynomial extends Component {
       matrixB[i] = regressionMatrixY[i + 1];
     }
     answer = squeeze(lusolve(matrixA, matrixB));
-    for(var i=0;i<answer.length;i++){
+    for(i=0;i<answer.length;i++){
         answer[i]=parseFloat(answer[i]).toFixed(2)
     }
     console.log(answer);

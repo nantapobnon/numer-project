@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Card, Input, Button } from "antd";
 import { compile, derivative } from "mathjs";
 import Table from "react-bootstrap/Table";
@@ -118,7 +118,7 @@ function Newton() {
       .get("http://localhost:4000/api/rootofequation", { headers })
       .then((response) => {
         for (var i = 0; i < response.data.result.length; i++) {
-          if (response.data.result[i].id == "newton") {
+          if (response.data.result[i].id === "newton") {
             setFx(response.data.result[i].fx);
             setX0(response.data.result[i].x0);
           }

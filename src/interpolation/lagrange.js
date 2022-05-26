@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button, Table } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
@@ -69,7 +69,7 @@ function Lagrange() {
     }
 
     fx = 0;
-    for (var i = 1; i <= pointNum; i++) {
+    for (i = 1; i <= pointNum; i++) {
       fx += L(target, i, pointNum) * y[i];
     }
     setOutput(fx);
@@ -118,7 +118,7 @@ function Lagrange() {
       });
     }
 
-    for (var i = 1; i <= pointNum; i++) {
+    for (i = 1; i <= pointNum; i++) {
       matrixP.push(
         <Input
           style={{
@@ -216,7 +216,7 @@ function Lagrange() {
             nP = parseFloat(response.data.result[i].nPoint);
             point = response.data.result[i].point.split(",");
 
-            for (var j = 1; j <= nP; j++) {
+            for (j = 1; j <= nP; j++) {
               matrixP.push(
                 <Input
                   style={{
