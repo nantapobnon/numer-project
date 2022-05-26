@@ -60,5 +60,5 @@ netlify:
   image: node:16-alpine
   script:
     - npm install -g netlify-cli
-    - netlify deploy --dir=build --prod
+    - netlify deploy --dir=build
     
