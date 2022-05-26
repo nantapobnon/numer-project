@@ -6,7 +6,7 @@ stages:
   - testFront
   - testBack
   - testCal
-  # - deploy
+  - deploy
 
 # test project:
 #   stage: test
@@ -55,12 +55,10 @@ test cal:
   script:
     - test src/root-of-equation/bisection-method.js
 
-
-
-# netlify:
-#   stage: deploy
-#   image: node:14
-#   script:
-#     - npm install -g netlify-cli
-#     - netlify deploy --dir=build --prod
+netlify:
+  stage: deploy
+  image: node:16-alpine
+  script:
+    - npm install -g netlify-cli
+    - netlify deploy --dir=build --prod
     
