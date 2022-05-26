@@ -1,7 +1,8 @@
 stages: 
   #- test
-  - build 
+  - install
   - test
+  - build
   - testFront
   - testBack
   - testCal
@@ -13,6 +14,16 @@ stages:
 #   script:
 #     - npm install
 #     # - npm start
+
+install project:
+  stage: install
+  image: node:16-alpine
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - build/
 
 build project:
   stage: build
