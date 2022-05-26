@@ -26,7 +26,7 @@ build project:
   image: node:16-alpine
   script:
     - npm install
-    - npm run build
+    - sudo npm run build
   artifacts:
     paths:
       - build/
