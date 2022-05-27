@@ -181,11 +181,11 @@ class Jacobi extends Component {
         '"x' +
         (i + 1) +
         '": ' +
-        x[i].toFixed(8) +
+        x[i].toFixed(6) +
         ', "error' +
         (i + 1) +
         '": ' +
-        error[i].toFixed(8);
+        error[i].toFixed(6);
       if (i !== x.length - 1) {
         tag += ",";
       }

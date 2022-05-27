@@ -33,7 +33,34 @@ const integrationRouter = require("./routes/integration");
 const linearRouter = require("./routes/linear");
 const interpolationRouter = require("./routes/interpolation");
 
-// Setup all the routes
+// Setup all the routes\
+
+
+
+/**
+ * @swagger 
+ * /api/auth:
+ *   post:
+ *     description: Get api token
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *     - in: body
+ *       name: user
+ *       schema: 
+ *         type: object
+ *         propeties: 
+ *           email:
+ *             type: string
+ *           password:
+ *             type: string
+ *         example:
+ *           email: vincent@vincentlab.net
+ *           password: "123"
+ *     responses: 
+ *       200: 
+ *            description: get Example Success!
+ */
 app.use("/api/auth", authRouter);
 
 /**
@@ -47,7 +74,7 @@ app.use("/api/auth", authRouter);
  *          schema:
  *            type: string
  *            format: uuid
- *            default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
+ *            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
  *     responses: 
  *       200: 
  *            description: get Example Success!
@@ -65,7 +92,7 @@ app.use("/api/rootofequation", rootOfEquationRouter);
  *          schema:
  *            type: string
  *            format: uuid
- *            default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
+ *            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
  *     responses: 
  *       200: 
  *            description: get Example Success!
@@ -83,7 +110,7 @@ app.use("/api/differentiation", differentiationRouter);
  *          schema:
  *            type: string
  *            format: uuid
- *            default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
+ *            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
  *     responses: 
  *       200: 
  *            description: get Example Success!
@@ -101,7 +128,7 @@ app.use("/api/integration", integrationRouter);
  *          schema:
  *            type: string
  *            format: uuid
- *            default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
+ *            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
  *     responses: 
  *       200: 
  *            description: get Example Success!
@@ -119,7 +146,7 @@ app.use("/api/linear", linearRouter);
  *          schema:
  *            type: string
  *            format: uuid
- *            default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
+ *            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJhZG1pbiIsImVkaXRvciIsInZpZXdlciJdLCJpYXQiOjE2NTMwNjY0MzUsImV4cCI6MTY4NDYyNDAzNX0.pTeysLdrdUWa0hHVznTfMbtjoxz-a8Ae1IirCyWKqOc
  *     responses: 
  *       200: 
  *            description: get Example Success!

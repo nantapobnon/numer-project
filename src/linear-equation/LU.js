@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState } from "react";
 import { Card, Input, Button } from "antd";
 import "antd/dist/antd.css";
-import { lusolve, format } from "mathjs";
+import { lusolve } from "mathjs";
 const InputStyle = {
   width: "100px",
   background: "white",
@@ -16,10 +16,8 @@ function LU() {
     columns: 2,
   });
   const [matrixA, setMatrixA] = useState(null);
-  const [matrixB, setMatrixB] = useState(null);
   const [matrixRes, setMatrixRes] = useState(null);
   var matrix = [];
-  var matrixAns = [];
   var A = [];
   var B = [];
   var result = [];
@@ -37,7 +35,7 @@ function LU() {
     }
 
     decompose = lusolve(A, B);
-    for (var i = 0; i < decompose.length; i++) {
+    for (i = 0; i < decompose.length; i++) {
       result.push("x" + (i + 1) + " = " + Math.round(decompose[i]));
       result.push(<br />);
     }
@@ -90,7 +88,6 @@ function LU() {
     console.log(matrix);
     console.log(matrixSize["rows"]);
     setMatrixA(matrix);
-    setMatrixB(matrixAns);
   }
 
   return (

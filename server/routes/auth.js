@@ -12,6 +12,8 @@ router.post("/", async (req, res) => {
     const users = [{ email: "vincent@vincentlab.net", password: "$2b$15$zqY2Q4eOoGzFpZkHJz9HS.BSfXc/HM2E/yTWa1awFmTMgN2bE72Uu", roles: ["admin", "editor", "viewer"] }];
 
     // Get to user from the database, if the user is not there return error
+    console.log("req.body.email")
+    console.log(req.body.email)
     let user = users.find(u => u.email === req.body.email);
     if (!user) throw new Error("Invalid email or password.");
 

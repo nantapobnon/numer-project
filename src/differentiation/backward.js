@@ -121,6 +121,7 @@ function Backwardh() {
             <div>
               <h3>f(x)</h3>
               <Input
+                data-testid="fx"
                 size="large"
                 value={fx}
                 style={InputStyle}
@@ -133,6 +134,7 @@ function Backwardh() {
             <div>
               <h3>Degree</h3>
               <Input
+              data-testid="degree"
                 value={degree}
                 size="large"
                 type="number"
@@ -150,6 +152,7 @@ function Backwardh() {
             <div>
               <h3>X</h3>
               <Input
+              data-testid="x"
                 value={x}
                 size="large"
                 style={InputStyle}
@@ -162,6 +165,7 @@ function Backwardh() {
             <div>
               <h3>H</h3>
               <Input
+              data-testid="h"
                 value={h}
                 size="large"
                 style={InputStyle}

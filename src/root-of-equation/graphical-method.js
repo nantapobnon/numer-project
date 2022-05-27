@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Card, Input, Button } from "antd";
 import { compile } from "mathjs";
 import Table from "react-bootstrap/Table";
@@ -115,7 +115,7 @@ function Graphical() {
       .get("http://localhost:4000/api/rootofequation", { headers })
       .then((response) => {
         for (var i = 0; i < response.data.result.length; i++) {
-          if (response.data.result[i].id == "graphical") {
+          if (response.data.result[i].id === "graphical") {
             setFx(response.data.result[i].fx);
             setXl(response.data.result[i].start);
             setXr(response.data.result[i].finish);

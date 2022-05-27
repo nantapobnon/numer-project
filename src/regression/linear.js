@@ -125,9 +125,9 @@ class Linear extends Component {
     matrixY[1] = this.summationOfTwo(x, y);
     matrixX = inv(matrixX);
     answer = JSON.stringify(multiply(matrixX, matrixY));
-    for(var i=0;i<answer.length;i++){
-        answer[i]=parseFloat(answer[i]).toFixed(2)
-    }
+    // for(var i=0;i<answer.length;i++){
+    //     answer[i]=answer[i]
+    // }
     this.setState({
       showOutputCard: true,
     });
@@ -254,3 +254,5 @@ class Linear extends Component {
   }
 }
 export default Linear;
+
+
